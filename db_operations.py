@@ -1,14 +1,22 @@
-from DBFinalVidyagaem.helper import helper
+import sys
+import mysql.connector
+from helper import helper
 
 class db_operations():
     # constructor with connection path to DB
     def __init__(self):
+        #process command line arguments
+        if len(sys.argv) != 3:
+            print("Usage: python3 videogame_app.py <host> <port>")
+            sys.exit(1)
+
         #make connection
-        self.connection = mysql.connector.connect(host="localhost",
-        user="root",
-        password="CPSC408!",
+        self.connection = mysql.connector.connect(host= sys.argv[1],
+        port= int(sys.argv[2]),
+        user="external",
+        password="external",
         auth_plugin='mysql_native_password',
-        database="RideShare")
+        database="vidyagaemap")
         #create cursor object
         self.cursor = self.connection.cursor()
         
